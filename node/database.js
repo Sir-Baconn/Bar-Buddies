@@ -5,21 +5,21 @@ var db;
 
 function startConnection() {
     db = mysql.createConnection({
-        host: 'belchers.cxsxjf973lg9.us-east-1.rds.amazonaws.com',
-        user: 'BelchBashers',
-        password: '1toomanyfeeders', //needs my usual password, removed for doing
-        database: 'Belchers',
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_db,
         multipleStatements: true
     });
 }
 
-// Closes the connection, still unsure of when to call this at all...
+// Closes the connection
 function closeConnection() {
     if (db !== "undefined")
         db.end();
 }
 
-// Put functions here that run queries or insert data, access them with db.fnc
+// Put functions here that run queries or insert data
 function getBarsInState(state, callback) {
     var query = "SELECT name FROM bars WHERE state= ?";
     var q = db.query(query, state, function(err, result) {
