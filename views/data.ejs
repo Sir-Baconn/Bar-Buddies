@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <script src="js/Chart.PieceLabel.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/data.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Explore our data</h1>
+            </div>
+            <div class="verifyDiv">
+                <h3>See the beer a bar has that you may want to visit</h3>
+                <div class="wrapper">
+                    <form class="ui form" method="POST" action="/data">
+                        <div class="field" id='field'>
+                            <select id="barYouSelect" class="ui search dropdown" name="bar">
+                                <option value="">Select Bar</option>
+                                <% for(var i = 0; i < bars.length; i++){ %>
+                                        <option value="<%= bars[i].name %>"><%= bars[i].name %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="canvasDiv" id="barCanvas" style="width: 800px; height: 300px" hidden>
+                        <canvas id="myChartBar"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="verifyDiv">
+                <h3>Pattern: All bars sell 3 common beers</h3>
+                <div class="wrapper" id="pieDiv">
+                    <div class="canvasDiv" style="width: 500px; height: 300px">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <script>
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        var data = {
+                            datasets: [{
+                                data: [<%= pieData[0].percent %>],
+                                backgroundColor: [
+                                    "#3a95c4"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#3a95c4",
+                                ]
+                            }],
+
+                            // These labels appear in the legend and in the tooltips when hovering different arcs
+                            labels: ['<%= pieData[0].beer %>']
+                        };
+                        var myPieChart = new Chart(ctx,{
+                            type: 'pie',
+                            data: data,
+                            options: {
+                                showAllTooltips: true,
+                                tooltips: {
+                                    enabled: true,
+                                    mode: 'single',
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                                            var tooltipLabel = data.labels[tooltipItem.index];
+                                            var tooltipData = allData[tooltipItem.index];
+                                            return tooltipLabel + ': Sold by ' + tooltipData + '% of bars';
+                                        }
+                                    }
+                                },
+                                pieceLabel: {
+                                    mode: 'percentage',
+                                    fontColor: '#000',
+                                    position: 'outside'
+                                }
+                            }
+                        });
+                    </script>
+                    <div class="canvasDiv" style="width: 500px; height: 300px">
+                        <canvas id="myChart3"></canvas>
+                    </div>
+                    <script>
+                        var ctx = document.getElementById('myChart3').getContext('2d');
+                        var data = {
+                            datasets: [{
+                                data: [<%= pieData[1].percent %>],
+                                backgroundColor: [
+                                    "#c8192a"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#c8192a"
+                                ]
+                            }],
+
+                            // These labels appear in the legend and in the tooltips when hovering different arcs
+                            labels: ['<%= pieData[1].beer %>']
+                        };
+                        var myPieChart = new Chart(ctx,{
+                            type: 'pie',
+                            data: data,
+                            options: {
+                                showAllTooltips: true,
+                                tooltips: {
+                                    enabled: true,
+                                    mode: 'single',
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                                            var tooltipLabel = data.labels[tooltipItem.index];
+                                            var tooltipData = allData[tooltipItem.index];
+                                            return tooltipLabel + ': Sold by ' + tooltipData + '% of bars';
+                                        }
+                                    }
+                                },
+                                pieceLabel: {
+                                    mode: 'percentage',
+                                    fontColor: '#000',
+                                    position: 'outside'
+                                }
+                            }
+                        });
+                    </script>
+                    <div class="canvasDiv" style="width: 500px; height: 300px">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                    <script>
+                        var ctx = document.getElementById('myChart2').getContext('2d');
+                        var data = {
+                            datasets: [{
+                                data: [<%= pieData[2].percent %>],
+                                backgroundColor: [
+                                    "#216728"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#216728"
+                                ]
+                            }],
+
+                            // These labels appear in the legend and in the tooltips when hovering different arcs
+                            labels: ['<%= pieData[2].beer %>']
+                        };
+                        var myPieChart = new Chart(ctx,{
+                            type: 'pie',
+                            data: data,
+                            options: {
+                                showAllTooltips: true,
+                                tooltips: {
+                                    enabled: true,
+                                    mode: 'single',
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            var allData = data.datasets[tooltipItem.datasetIndex].data;
+                                            var tooltipLabel = data.labels[tooltipItem.index];
+                                            var tooltipData = allData[tooltipItem.index];
+                                            return tooltipLabel + ': Sold by ' + tooltipData + '% of bars';
+                                        }
+                                    }
+                                },
+                                pieceLabel: {
+                                    mode: 'percentage',
+                                    fontColor: '#000',
+                                    position: 'outside'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="verifyDiv">
+                <h3>Pattern: Drinkers only frequent bars in their state</h3>
+                <div class="wrapper">
+                    <form class="form" method="POST" action="/data">
+                        <div class="submitBtn">
+                            <% if(!freqVer){%>
+                                <button type="submit" name="submit" value="success" class="btn btn-info">Verify</button>
+                            <%}%>
+                            <% if(freqVer){%>
+                                <h2 style="margin-top: 10px; color: green; text-decoration: underline">Verification result: True</h2>
+                            <%}else if(freqVerFailed){%>
+                                <h2 style="margin-top: 10px; color: red; text-decoration: underline">Verification result: False</h2>
+                            <%}%>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+        <script src="js/data.js"></script>
+    </body>
+</html>

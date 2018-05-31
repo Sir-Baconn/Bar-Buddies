@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_stuff/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="top_bar"></div>
+        <div class="middle-top">
+            <div class="container">
+                <div class="row center">
+                    <div class="col col-lg-6">
+                        <h2>What is Belch Bashers?</h2>
+                        <p>Belch Bashers is a place for you to connect with other drinkers. We offer a quick way to find an uber driver for you and a friend to take you to a bar.</p>
+                        <p>We are all about finding the most cost efficient route for you and your buddy.</p>
+                        <p>You can use our navigation bar to navigate to any part of the site.</p>
+                        <p>Enjoy your place here at Belch Bashers.</p>
+                        <p>We hope you have a good experience.</p>
+                    </div>
+                    <div class="col col-lg-6">
+                        <h2>How does it work?</h2>
+                        <p>We take your information and turn it into a cost optimizing route.</p>
+                        <p>We find the shortest distance between you, the bar, the driver, and your friend.</p>
+                        <p>Then, we attempt to deduce a price for the driver to pick you guys up and take you to the bar.</p>
+                        <p>Lastly, you are rewarded with which bar is your destination and all the information needed to see the driver.</p>
+                        <p>You can also see how you match out with other drinkers!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle-bottom">
+            <div class="container">
+                <div class="row center">
+                    <div class="col col-lg-4">
+                        <div class="top-grid">
+                            <img src="imgs/beer_stuff/beer_together.png" alt="">
+                            <a href="/drink_together"><h2>Drink with Others</h2></a>                        
+                        </div>
+                        <p>We've made it easier than ever to drink with your buddies.</p>
+                        <p>Partnering with Uber has allowed us to make this process faster and easier than ever.</p>
+                        <p>Just simply choose the buddy you wish to drink with and we will find a driver for <em>both</em> of you.</p>
+                        <p>Looking for a new bud? Head to the <a href="/find_drinkers_start">Find Drinkers Like You</a> page.</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <div class="top-grid">
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                            <a href="/data"><h2>Explore Data</h2></a>
+                        </div>
+                        <p>You can explore some of our data in this section.</p>
+                        <p>You can view our patterns and check that they are verified as well.</p>
+                        <p>If you want to look at some bars to see which beers they have to offer, this is the place to go.</p>
+                        <p>Click <a href="/data">here</a> to visit the explore data page.</p>
+                        <p>We sure love data...</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <div class="top-grid">
+                            <i class="fa fa-database" aria-hidden="true"></i>
+                            <a href="/add_yourself"><h2>Become a Drinker!</h2></a>
+                        </div>
+                        <p>You can add yourself to our database if you'd like to.</p>
+                        <p>It's a great way to see how you pair up with other drinkers.</p>
+                        <p>If you are looking to compare yourself with other drinkers or want to create your drinker profile then you should definitely add yourself!</p>
+                        <p>Head to the <a href="/add_yourself">Add Yourself</a> page in order to do so.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+    </body>
+</html>

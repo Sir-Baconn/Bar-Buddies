@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/add_yourself.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Add beer to a bar</h1>
+            </div>
+            <div class="wholeForm">
+                <form class="ui form" method="POST" action="/add_beer">
+                    <legend>Insert the bar, beer, and price</legend>
+                    <div class="field form-group" id='field'>
+                            <select id="barYouSelect" class="ui search dropdown" name="bar">
+                                <option value="">Select Bar</option>
+                                <% for(var i = 0; i < bars.length; i++){ %>
+                                        <option value="<%= bars[i].name %>"><%= bars[i].name %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    <div class="form-group">
+                        <input type="text" name="beer" class="form-control" placeholder="Beer name" required <% if(beer) %>value='<%=beer%>'>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="price" class="form-control" placeholder="Price of beer" required <% if(price) %>value='<%=price%>'>
+                    </div>
+                    <div class="submitBtn">
+                        <button type="submit" name="submit" value="success" class="btn btn-success">Submit</button>
+                    </div>
+                    <% if(violatedFD === false) {%>
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Oh snap!</strong> <a href="#" class="alert-link">That bar already sells that beer for a price</a> (constraint verification: bar,beer->price).
+                        </div>
+                    <%}else if(violatedFK === false){%>
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Oh snap!</strong> <a href="#" class="alert-link">That beer does not exist in our DB</a> (constraint violation: beer,sells FK).
+                        </div>
+                    <%}%>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+    </body>
+    <script src="js/add_beer.js"></script>
+</html>

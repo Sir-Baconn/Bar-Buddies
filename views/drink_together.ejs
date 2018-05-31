@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/drink_together.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Drink with Friends</h1>
+            </div>
+            <div class="wholeForm">
+                <form id="drinkerForm" class="ui form" method="POST" action="/drink_together">
+                    <legend>Who are You</legend>
+                    <div class="field" id='field'>
+                        <select id="drinkerYouSelect" class="ui search dropdown" name="drinker">
+                            <option value="">Select Drinker</option>
+                            <% for(var i = 0; i < drinkers.length; i++){ %>
+                                    <option value="<%= drinkers[i].name %>"><%= drinkers[i].name %></option>
+                                <% } %>
+                        </select>
+                    </div>
+                </form>
+                <h2>Find the Cheapest Ride to a Bar in Your Area</h2>
+                <form class="ui form" method="POST" action="/drink_together">
+                <!--
+                    <legend>Choose a Bar in Your Area</legend>            
+                    <div class="field">
+                        <select id="barYouSelect" class="ui search dropdown" name="bar">
+                            <option value="">Select Bar</option>
+                        </select>
+                    </div>
+                -->
+                    <legend>Choose a Friend</legend>
+                    <div class="field">
+                        <select id="friendYouSelect" class="ui search dropdown" name="friend">
+                            <option value="">Select Drinker</option>
+                        </select>
+                    </div>
+                    <div class="subBtn">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <h1> OR </h1>
+            <hr class="hrAfter">            
+            <div class="frequentsForm">
+                <h2>Find the Cheapest Ride to a Bar You Both Frequent</h2>
+                <form class="ui form" method="POST" action="/drink_together">
+                    <legend>Choose a Friend</legend>
+                    <div class="field">
+                        <select id="freqFriendYouSelect" class="ui search dropdown" name="freqFriend">
+                            <option value="">Select Drinker</option>
+                        </select>
+                    </div>
+                    <div class="subBtn">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+        <script src="/js/drink_together.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+.details {
+    text-align: center;
+}
+
+h3 {
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+h4 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+hr {
+    width: 35%;
+}

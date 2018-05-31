@@ -1,0 +1,100 @@
+.page-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.right {
+    padding-left: 15%;
+}
+
+.right h2 {
+    position: absolute;
+    top: 10px;
+    right: 80px;
+    /* text-align: center; */
+}
+
+.left {
+    padding-left: 2px;
+}
+
+.left h2 {
+    position: absolute;
+    top: 5px;
+    left: 80px;
+}
+
+.mid_thing {
+    margin: 0 25%;
+    width: 1000px;
+    /* text-align: center; */
+}
+
+.mid_thing h2 {
+    text-align: center;
+}
+
+.canvasDiv{
+    margin-left: 24%;
+}
+
+.quantitativeHeader {
+    margin-bottom: 25px;
+}
+
+.qualitativeHeader {
+    margin-bottom: 40px;
+}
+
+.lists {
+    height: 200px;
+}
+
+.plusList,
+.minusList {
+    list-style: none;
+    font-size: 1.5rem;
+    margin-left: 17%;
+    float: left;
+}
+
+.plusList li::before {
+    font-family: 'FontAwesome';
+    content: '\f00c';
+    margin: 0 5px 0 -15px;
+    color: green;
+    font-size: 1.5rem;
+    /* text-shadow: 1px 1px green; */
+}
+
+.plusList li,
+.minusList li {
+    padding: 5px 0px;
+}
+
+.plusList li span,
+.minusList li span {
+    padding-left: 10px;
+}
+
+.minusList li::before {
+    font-family: 'FontAwesome';
+    content: '\f00d';
+    margin: 0 5px 0 -15px;
+    color: red;
+    font-size: 1.5rem;
+    /* text-shadow: 1px 1px red; */
+}
+
+.endButtons {
+    text-align: center;
+    margin-top: 230px;
+}
+
+.tryAnotherBtn {
+    margin-left: 10px;
+}

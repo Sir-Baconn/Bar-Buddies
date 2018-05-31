@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/add_yourself.css" rel="stylesheet">
+        <link href="css/add_yourself_profile.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Welcome <%= drinker %>!</h1>
+                <h1>Please fill out your profile.</h1>
+                <h4><a href="/">Skip Profile Creation</a></h4>
+            </div>
+            <div class="wholeForm">
+                <form class="ui form" method="POST" action="/add_yourself_profile_result">
+                    <legend>Create your profile</legend>
+                    <div class="field form-group">
+                        <label for="stressLevel">Typical stress level<span title="Required">*</span></label>
+                        <select id="stressLevelSelect" class="ui search dropdown" name="stressLevel" required>
+                            <option value="">Select Level</option>
+                            <% for(var i = 0; i < stressLevels.length; i++){ %>
+                                    <option value="<%= stressLevels[i].stressLevel %>"><%= stressLevels[i].stressLevel %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="field form-group">
+                        <label for="jobHours">Work hours/week<span title="Required">*</span></label>
+                        <input type="number" name="jobHours" class="form-control" placeholder="hh" min="0" max="70" required>
+                    </div>
+                    <div class="field form-group">
+                        <label for="familyStatus">Family status<span title="Required">*</span></label>                    
+                        <select id="familyStatusSelect" class="ui search dropdown" name="familyStatus" required>
+                            <option value="">Select Status</option>
+                            <% for(var i = 0; i < familyStatuses.length; i++){ %>
+                                    <option value="<%= familyStatuses[i].familyStatus %>"><%= familyStatuses[i].familyStatus %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="field form-group">
+                        <label for="drinkLevel">Type of drinker<span title="Required">*</span></label>                    
+                        <select id="drinkLevelSelect" class="ui search dropdown" name="drinkLevel" required>
+                            <option value="">Select Type</option>                        
+                            <% for(var i = 0; i < drinkLevels.length; i++){ %>
+                                    <option value="<%= drinkLevels[i].drinkLevel %>"><%= drinkLevels[i].drinkLevel %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="field form-group radio">
+                        <p>Gender:</p>
+                        <div class="radioInput">
+                            <input type="radio" name="male">
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="radioInput">                        
+                            <input type="radio" name="female">
+                            <label for="female">Female</label>
+                        </div>
+                    </div>
+                    <div class="field form-group radio">
+                        <p>Bar time:</p>
+                        <div class="radioInput">
+                            <input type="radio" name="lateNight">
+                            <label for="lateNight">Late Night</label>
+                        </div>
+                        <div class="radioInput">                        
+                            <input type="radio" name="night">
+                            <label for="night">Night</label>
+                        </div>
+                        <div class="radioInput">                        
+                            <input type="radio" name="any">
+                            <label for="any">Any</label>
+                        </div>
+                    </div>
+                    <div class="field form-group">
+                        <label for="personality">One word to describe personality<span title="Required">*</span></label>                    
+                        <select id="personalitySelect" class="ui search dropdown" name="personality" required>
+                            <option value="">Select Personality</option>
+                            <% for(var i = 0; i < personalities.length; i++){ %>
+                                    <option value="<%= personalities[i].personality %>"><%= personalities[i].personality %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="field form-group">
+                        <label for="money">Spending freedom<span title="Required">*</span></label>                    
+                        <select id="moneySelect" class="ui search dropdown" name="money" required>
+                            <option value="">Select Class</option>
+                            <% for(var i = 0; i < moneys.length; i++){ %>
+                                    <option value="<%= moneys[i].money %>"><%= moneys[i].money %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="field form-group">
+                        <label for="daysBar">Days spent at bar/week<span title="Required">*</span></label>                    
+                        <select id="daysBarSelect" class="ui search dropdown" name="daysBar" required>
+                            <option value="">Select Days</option>
+                            <% for(var i = 1; i < 8; i++){ %>
+                                    <option value="<%=i%>"><%=i%></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="submitBtn">
+                        <button type="submit" name="submit" value="success" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+    <script src="js/add_yourself_profile.js"></script>
+    </body>
+</html>

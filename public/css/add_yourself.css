@@ -1,0 +1,39 @@
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+.all-content {
+    height: 800px;
+    text-align: center;
+}
+
+.wholeForm {
+    display: inline-block;
+    width: 450px;
+}
+
+legend {
+    text-align: initial;
+}
+
+.submitBtn {
+    text-align: left;
+}
+
+label {
+    display: block;
+    text-align: left;
+}
+
+.alert-danger{
+    margin-top: 30px;
+}
+
+.alert-dismissible .close{
+    padding: 0.1rem 0.5rem;
+}

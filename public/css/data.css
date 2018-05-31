@@ -1,0 +1,24 @@
+.wrapper{
+    display: inline-block;
+}
+
+.verifyDiv{
+    margin-top: 3%;
+}
+
+.canvasDiv{
+    float: left;
+}
+
+#pieDiv{
+    margin-top: 50px;
+}
+
+#barCanvas{
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+
+.submitBtn button{
+    font-size: 14px;
+}

@@ -1,0 +1,1 @@
+SELECT NOT EXISTS(SELECT name FROM drinkers WHERE name NOT IN(SELECT DISTINCT(f.drinker) FROM frequents f, bars b, drinkers d WHERE b.state = d.state AND f.drinker = d.name AND f.bar = b.name)) AS 'result';

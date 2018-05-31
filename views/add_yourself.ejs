@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvXfuQZucwm3_UosZWziJDrfX6yHzJSr8&libraries=places"></script>
+        <script src="js/jquery.geocomplete.js"></script>
+        <script src="js/jquery.maskedinput.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/add_yourself.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Add Yourself</h1>
+            </div>
+            <div class="wholeForm">
+                <form class="form" id="property" method="POST" action="/add_yourself_profile">
+                    <legend>Basic Information</legend>
+                    <div class="form-group">
+                        <input type="text" name="drinker_name" class="form-control" placeholder="Your Name" <% if(name) %>value='<%=name%>' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="drinker_phone" class="form-control" id="phone" placeholder="Phone Number (xxx-xxx-xxxx)" maxlength="12" <% if(phone) %>value='<%=phone%>' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="full_address" class="form-control" id="address" placeholder="Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="lat" class="form-control" placeholder="Latitude" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="lng" class="form-control" placeholder="Longitude" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="street_number" class="form-control" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="route" class="form-control" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="locality" class="form-control" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="administrative_area_level_1_short" class="form-control" readonly hidden>
+                    </div>
+                    <div class="submitBtn">
+                        <button type="submit" name="submit" value="success" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+                <% if(validDrinker === false && name === '') {%>
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">A person with that name already exists</a> (constraint verification).
+                    </div>
+                <%}else if(validDrinker === false){%>
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">A person with that address already exists</a> (constraint verification).
+                    </div>
+                <%}%>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+    </body>
+    <script src="js/add_yourself.js"></script>
+</html>

@@ -1,0 +1,12 @@
+.wrapper {
+    display: inline-block;
+}
+
+.all-content {
+    height: 800px;
+}
+
+#youForm,
+#theyForm{
+    margin-top: 50px;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/find_drinker.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Your Results with <%= drinker %></h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-4 left slide-in-left">
+                        <h2>You</h2>
+                        <img src="imgs/people/female_default.jpg" width="212px" height="212px" alt="">                        
+                    </div>
+                    <div class="col col-lg-4">
+                        
+                    </div>
+                    <div class="col col-lg-4 right slide-in-right">
+                        <%if(gender === 'male'){%>
+                            <h2>Him</h2>
+                        <%}else{%>
+                            <h2>Her</h2>
+                        <%}%>
+                        <img src="imgs/people/male_default.png" width="212px" height="212px" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mid_thing slide-in-bottom">
+            <h2 class="quantitativeHeader">Commonalities - Quantitative</h2>
+            <div class="canvasDiv" style="width: 500px; height: 300px">
+                <canvas id="myChart"></canvas>
+            </div>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'horizontalBar',
+
+                    scaleOverride: true,
+                    scaleSteps: Math.ceil((10-0)/1),
+
+                    // The data for our dataset
+                    data: {
+                        labels: ["Beers", "Bars"],
+                        datasets: [{
+                            backgroundColor: ['rgb(255, 99, 132)', 'rgb(200, 99, 132)'],
+                            borderColor: ['rgb(255, 99, 132)', 'rgb(200, 99, 132)'],
+                            data: [<%= numBeers %>, <%= numBars %>],
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        showAllTooltips: true,
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            enabled: true,
+                            mode: 'single',
+                            callbacks: {
+                                label: function(tooltipItems, data) {
+                                    return tooltipItems.yLabel + ' in Common: ' + tooltipItems.xLabel;
+                                }
+                            }
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {if (value % 1 === 0) {return value;}},
+                                    min: 0,
+                                    stepSize: 1,
+                                    max: 6
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'amount in common'
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
+            <h2 class="qualitativeHeader">Commonalities - Qualitative</h2>
+            <div class="lists">
+                <ul class="plusList">
+                    <% for(var i = 0; i < commonalities.length; i++){ %>
+                        <li><span><%= commonalities[i] %></span></li>
+                    <% } %>
+                </ul>
+                <ul class="minusList">
+                    <% for(var i = 0; i < differences.length; i++){ %>
+                        <li><span><%= differences[i] %></span></li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="endButtons">
+                <form method="GET" action="/find_drinkers/add_drinker_circle">
+                    <button type="submit" name="drinker" value="<%= drinker %>" class="btn btn-success" hidden>Add Drinker to Circle of Trust</button>
+                    <button type="submit" class="btn btn-primary tryAnotherBtn">Try Another Drinker</button>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+    </body>
+    <script src="js/find_drinker.js"></script>
+</html>

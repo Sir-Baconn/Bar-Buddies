@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Belch Bashers</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="imgs/beer_icon.png">
+        <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/general.css" rel="stylesheet">
+        <link href="css/find_drinker.css" rel="stylesheet">
+        <link href="css/find_drinkers_start.css" rel="stylesheet">
+    </head>
+    <header>
+        <% include templates/header.ejs%>
+    </header>
+    <body>
+        <div class="all-content">
+            <div class="page-header">
+                <h1>Please Choose a Drinker to Match With</h1>
+                <div class="wrapper">
+                    <form class="ui form" method="POST" action="/find_drinkers_start">
+                        <div class="field" id='field'>
+                            <select id="stateYouSelect" class="ui search dropdown" name="state">
+                                <option value="">Select State</option>
+                                <% for(var i = 0; i < states.length; i++){ %>
+                                        <option value="<%= states[i].state %>"><%= states[i].state %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </form>
+                    <form id="youForm" class="ui form" method="POST" action="/find_drinkers_start">
+                        <legend>Please choose who you are</legend>
+                        <div class="field" id='field'>
+                            <select id="drinkerYouSelect" class="ui search dropdown" name="drinkerYou">
+                                <option value="">Select Drinker</option>
+                                <% for(var i = 0; i < drinkers.length; i++){ %>
+                                        <option value="<%= drinkers[i].name %>"><%= drinkers[i].name %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </form>
+                    <form id="theyForm" class="ui form" method="POST" action="/find_drinkers">
+                        <legend>Choose the drinker you wish to match with</legend>
+                        <div class="field" id='field'>
+                            <select id="drinkerYouSelect2" class="ui search dropdown" name="drinkerThey" onchange="this.form.submit()">
+                                <option value="">Select Drinker</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <% include templates/footer.ejs%>
+        </footer>
+        <script src="js/find_drinkers_start.js">
+        </script>
+    </body>
+</html>
