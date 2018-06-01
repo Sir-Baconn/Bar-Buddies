@@ -21,7 +21,7 @@ function closeConnection() {
 
 // Put functions here that run queries or insert data
 function getBarsInState(state, callback) {
-    var query = "SELECT name FROM bars WHERE state= ?";
+    var query = "SELECT name FROM bar_buddies.bars WHERE state= ?";
     var q = db.query(query, state, function(err, result) {
         if (err) throw err;
         console.log(q.sql);
@@ -30,7 +30,7 @@ function getBarsInState(state, callback) {
 }
 
 function getAllBars(callback){
-    var query = "SELECT * FROM bars";
+    var query = "SELECT * FROM bar_buddies.bars";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -38,7 +38,7 @@ function getAllBars(callback){
 }
 
 function getSellsOfBar(bar, callback){
-    var query = "SELECT beer, price FROM sells WHERE bar = ?";
+    var query = "SELECT beer, price FROM bar_buddies.sells WHERE bar = ?";
     db.query(query, bar, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -46,7 +46,7 @@ function getSellsOfBar(bar, callback){
 }
 
 function getAllSells(callback){
-    var query = "SELECT * FROM sells";
+    var query = "SELECT * FROM bar_buddies.sells";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -54,7 +54,7 @@ function getAllSells(callback){
 }
 
 function getDrinkers(callback) {
-    var query = "SELECT name FROM drinkers";
+    var query = "SELECT name FROM bar_buddies.drinkers";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -62,7 +62,7 @@ function getDrinkers(callback) {
 }
 
 function getDrinkersInState(state, callback) {
-    var query = "SELECT name FROM drinkers WHERE state= ?";
+    var query = "SELECT name FROM bar_buddies.drinkers WHERE state= ?";
     db.query(query, state, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -70,7 +70,7 @@ function getDrinkersInState(state, callback) {
 }
 
 function getDrinkersThatShareFrequents(drinker, callback) {
-    var query = "SELECT DISTINCT(f2.drinker) FROM frequents f1, frequents f2 where f1.bar = f2.bar and f1.drinker = ? AND f1.drinker != f2.drinker";
+    var query = "SELECT DISTINCT(f2.drinker) FROM bar_buddies.frequents f1, bar_buddies.frequents f2 WHERE f1.bar = f2.bar and f1.drinker = ? AND f1.drinker != f2.drinker";
     db.query(query, drinker, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -78,7 +78,7 @@ function getDrinkersThatShareFrequents(drinker, callback) {
 }
 
 function getBarsSharedByFrequents(drinkerA, drinkerB, callback){
-    var query = "SELECT name, lon, lat from bars where name IN (SELECT f1.bar FROM frequents f1, frequents f2 where f1.bar = f2.bar and f1.drinker = ? AND f2.drinker = ?)";
+    var query = "SELECT name, lon, lat FROM bar_buddies.bars WHERE name IN (SELECT f1.bar FROM frequents f1, frequents f2 WHERE f1.bar = f2.bar and f1.drinker = ? AND f2.drinker = ?)";
     var drinkers = [drinkerA, drinkerB];
     db.query(query, drinkers, function(err, result) {
         if (err) throw err;
@@ -87,7 +87,7 @@ function getBarsSharedByFrequents(drinkerA, drinkerB, callback){
 }
 
 function getState(drinkerName, callback) {
-    var query = "SELECT state FROM drinkers WHERE name = ?";
+    var query = "SELECT state FROM bar_buddies.drinkers WHERE name = ?";
     db.query(query, drinkerName, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -95,7 +95,7 @@ function getState(drinkerName, callback) {
 }
 
 function getAllStates(callback){
-    var query ="SELECT DISTINCT(state) FROM Belchers.drinkers ORDER BY state ASC";
+    var query ="SELECT DISTINCT(state) FROM bar_buddies.drinkers ORDER BY state ASC";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -103,7 +103,7 @@ function getAllStates(callback){
 }
 
 function getDrinkerLocation(drinker, callback) {
-    var query = "SELECT lon, lat, state FROM drinkers WHERE name = ?";
+    var query = "SELECT lon, lat, state FROM bar_buddies.drinkers WHERE name = ?";
     db.query(query, drinker, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -111,7 +111,7 @@ function getDrinkerLocation(drinker, callback) {
 }
 
 function getDrinkersLocations(callback) {
-    var query = "SELECT lon, lat, state FROM drinkers";
+    var query = "SELECT lon, lat, state FROM bar_buddies.drinkers";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -119,7 +119,7 @@ function getDrinkersLocations(callback) {
 }
 
 function getUberDriverLocation(state, callback) {
-    var query = "SELECT uber_drivers.id, lon, lat, rating from uber_drivers where state = ?";
+    var query = "SELECT uber_drivers.id, lon, lat, rating FROM bar_buddies.uber_drivers WHERE state = ?";
     db.query(query, state, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -127,7 +127,7 @@ function getUberDriverLocation(state, callback) {
 }
 
 function getUberDriverDetails(uberDriverId, callback) {
-    var query = "SELECT name, phone, rating, v.year, v.make, v.model, v.color from uber_drivers, vehicles v where uber_drivers.id = ? AND v.id = ?";
+    var query = "SELECT name, phone, rating, v.year, v.make, v.model, v.color FROM bar_buddies.uber_drivers, vehicles v WHERE uber_drivers.id = ? AND v.id = ?";
     var values = [uberDriverId, uberDriverId];
     db.query(query, values, function(err, result) {
         if (err) throw err;
@@ -136,7 +136,7 @@ function getUberDriverDetails(uberDriverId, callback) {
 }
 
 function getBarDetails(state, callback) {
-    var query = "SELECT name, lon, lat from bars where state = ?";
+    var query = "SELECT name, lon, lat FROM bar_buddies.bars WHERE state = ?";
     db.query(query, state, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -144,7 +144,7 @@ function getBarDetails(state, callback) {
 }
 
 function getNumBeersMatched(drinkerA, drinkerB, callback) {
-    var query = "SELECT COUNT(l1.beer) AS beers FROM likes l1, likes l2 WHERE l1.drinker = ? AND l2.drinker= ? AND l1.beer = l2.beer";
+    var query = "SELECT COUNT(l1.beer) AS beers FROM bar_buddies.likes l1, bar_buddies.likes l2 WHERE l1.drinker = ? AND l2.drinker= ? AND l1.beer = l2.beer";
     var drinkers = [drinkerA, drinkerB];
     db.query(query, drinkers, function(err, result) {
         if (err) throw err;
@@ -153,7 +153,7 @@ function getNumBeersMatched(drinkerA, drinkerB, callback) {
 }
 
 function getNumBarsMatched(drinkerA, drinkerB, callback) {
-    var query = "SELECT COUNT(f1.bar) AS bars FROM frequents f1, frequents f2 WHERE f1.drinker = ? AND f2.drinker= ? AND f1.bar = f2.bar";
+    var query = "SELECT COUNT(f1.bar) AS bars FROM bar_buddies.frequents f1, bar_buddies.frequents f2 WHERE f1.drinker = ? AND f2.drinker= ? AND f1.bar = f2.bar";
     var drinkers = [drinkerA, drinkerB];
     db.query(query, drinkers, function(err, result) {
         if (err) throw err;
@@ -162,7 +162,7 @@ function getNumBarsMatched(drinkerA, drinkerB, callback) {
 }
 
 function getDaysSpentAtBar(drinker, callback) {
-    var query = "SELECT daysBar FROM drinker_profiles WHERE drinker_profiles.id =(SELECT drinker_profile_id FROM shares WHERE drinker= ?)";
+    var query = "SELECT daysBar FROM bar_buddies.drinker_profiles WHERE drinker_profiles.id =(SELECT drinker_profile_id FROM shares WHERE drinker= ?)";
     db.query(query, drinker, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -170,7 +170,7 @@ function getDaysSpentAtBar(drinker, callback) {
 }
 
 function getDrinkerProfile(drinker, callback) {
-    var query = "SELECT * FROM drinker_profiles WHERE drinker_profiles.id =(SELECT drinker_profile_id FROM shares WHERE drinker= ?)";
+    var query = "SELECT * FROM bar_buddies.drinker_profiles WHERE drinker_profiles.id =(SELECT drinker_profile_id FROM shares WHERE drinker= ?)";
     db.query(query, drinker, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -178,7 +178,7 @@ function getDrinkerProfile(drinker, callback) {
 }
 
 function getAllOptionsForProfileAttributes(callback){
-    var query = "SELECT DISTINCT(stressLevel) FROM drinker_profiles;SELECT DISTINCT(familyStatus) FROM drinker_profiles;SELECT DISTINCT(drinkLevel) FROM drinker_profiles;SELECT DISTINCT(personality) FROM drinker_profiles;SELECT DISTINCT(money) FROM drinker_profiles;";
+    var query = "SELECT DISTINCT(stressLevel) FROM bar_buddies.drinker_profiles;SELECT DISTINCT(familyStatus) FROM bar_buddies.drinker_profiles;SELECT DISTINCT(drinkLevel) FROM bar_buddies.drinker_profiles;SELECT DISTINCT(personality) FROM bar_buddies.drinker_profiles;SELECT DISTINCT(money) FROM bar_buddies.drinker_profiles;";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -186,7 +186,7 @@ function getAllOptionsForProfileAttributes(callback){
 }
 
 function getPercentagesOfBarsCommonBeers(callback){
-    var query = "SELECT beer, COUNT(*) AS num_bars, COUNT(*) / T.total * 100 AS percent FROM sells s, (SELECT COUNT(DISTINCT(bar)) AS total FROM sells) AS T GROUP BY beer ORDER BY num_bars DESC LIMIT 3";
+    var query = "SELECT beer, COUNT(*) AS num_bars, COUNT(*) / T.total * 100 AS percent FROM bar_buddies.sells s, (SELECT COUNT(DISTINCT(bar)) AS total FROM bar_buddies.sells) AS T GROUP BY beer ORDER BY num_bars DESC LIMIT 3";
     db.query(query, function(err, result) {
         if (err) throw err;
         return callback(result);
@@ -194,7 +194,7 @@ function getPercentagesOfBarsCommonBeers(callback){
 }
 
 function insertDrinker(drinkerObj, callback){
-    var query = "INSERT INTO drinkers SET ?";
+    var query = "INSERT INTO bar_buddies.drinkers SET ?";
     db.query(query, drinkerObj, function(err, result){
         if(err) return callback(err);
         return callback(result);
@@ -202,7 +202,7 @@ function insertDrinker(drinkerObj, callback){
 }
 
 function insertDrinkerProfile(profile, callback){
-    var query = "INSERT INTO drinker_profiles SET ?";
+    var query = "INSERT INTO bar_buddies.drinker_profiles SET ?";
     db.query(query, profile, function(err, result){
         if(err) return callback(err);
         return callback(result);
@@ -210,7 +210,7 @@ function insertDrinkerProfile(profile, callback){
 }
 
 function insertShares(share, callback){
-    var query = "INSERT INTO shares SET ?";
+    var query = "INSERT INTO bar_buddies.shares SET ?";
     db.query(query, share, function(err, result){
         if(err) return callback(err);
         return callback(result);
@@ -218,7 +218,7 @@ function insertShares(share, callback){
 }
 
 function insertSells(sells, callback){
-    var query = "INSERT INTO sells SET ?";
+    var query = "INSERT INTO bar_buddies.sells SET ?";
     db.query(query, sells, function(err, result){
         if(err) return callback(err);
         return callback(result);
@@ -226,7 +226,7 @@ function insertSells(sells, callback){
 }
 
 function verifyFrequentsPattern(callback){
-    var query = "SELECT NOT EXISTS(SELECT name FROM drinkers WHERE name NOT IN(SELECT DISTINCT(f.drinker) FROM frequents f, bars b, drinkers d WHERE b.state = d.state AND f.drinker = d.name AND f.bar = b.name)) AS 'result'";
+    var query = "SELECT NOT EXISTS(SELECT name FROM bar_buddies.drinkers WHERE name NOT IN(SELECT DISTINCT(f.drinker) FROM bar_buddies.frequents f, bar_buddies.bars b, bar_buddies.drinkers d WHERE b.state = d.state AND f.drinker = d.name AND f.bar = b.name)) AS 'result'";
     db.query(query, function(err, result){
         if(err) throw err;
         return callback(result);
