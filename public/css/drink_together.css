@@ -3,6 +3,13 @@
     margin-bottom: 20px;
 }
 
+.page-header p{
+    width: 33%;
+    margin: 0 auto;
+    color: red;
+    font-weight: 600;
+}
+
 #drinkerForm{
     margin-bottom: 80px;
 }
