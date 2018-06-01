@@ -5,10 +5,10 @@ var db;
 
 function startConnection() {
     db = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_db,
+        host: 'side-projects.c5bdglabd5ux.us-east-2.rds.amazonaws.com',
+        user: 'SirBaconnn',
+        password: 'Baconisgood1996',
+        database: 'bar_buddies',
         multipleStatements: true
     });
 }
@@ -24,7 +24,6 @@ function getBarsInState(state, callback) {
     var query = "SELECT name FROM bar_buddies.bars WHERE state= ?";
     var q = db.query(query, state, function(err, result) {
         if (err) throw err;
-        console.log(q.sql);
         return callback(result);
     });
 }
@@ -88,7 +87,7 @@ function getBarsSharedByFrequents(drinkerA, drinkerB, callback){
 
 function getState(drinkerName, callback) {
     var query = "SELECT state FROM bar_buddies.drinkers WHERE name = ?";
-    db.query(query, drinkerName, function(err, result) {
+    var q = db.query(query, drinkerName, function(err, result) {
         if (err) throw err;
         return callback(result);
     });

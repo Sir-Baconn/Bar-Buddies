@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Belch Bashers</title>
+        <title>Bar Buddies</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="imgs/beer_icon.png">
+        <link rel="icon" href="imgs/beer_stuff/beer_icon.png">
         <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
         <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
@@ -31,8 +31,13 @@
                             <select id="stateYouSelect" class="ui search dropdown" name="state">
                                 <option value="">Select State</option>
                                 <% for(var i = 0; i < states.length; i++){ %>
+                                        <% if(drinkerState) {%>
+                                            <% if(states[i].state === drinkerState) {%>
+                                                <option value="<%= states[i].state %>" selected><%= states[i].state %></option>
+                                            <% } %>
+                                        <% } %>
                                         <option value="<%= states[i].state %>"><%= states[i].state %></option>
-                                    <% } %>
+                                <% } %>
                             </select>
                         </div>
                     </form>
@@ -42,8 +47,13 @@
                             <select id="drinkerYouSelect" class="ui search dropdown" name="drinkerYou">
                                 <option value="">Select Drinker</option>
                                 <% for(var i = 0; i < drinkers.length; i++){ %>
+                                        <% if(drinkerYou) {%>
+                                            <% if(drinkers[i].name === drinkerYou) {%>
+                                                <option value="<%= drinkers[i].name %>" selected><%= drinkers[i].name %></option>
+                                            <% } %>
+                                        <% } %>
                                         <option value="<%= drinkers[i].name %>"><%= drinkers[i].name %></option>
-                                    <% } %>
+                                <% } %>
                             </select>
                         </div>
                     </form>
@@ -52,6 +62,11 @@
                         <div class="field" id='field'>
                             <select id="drinkerYouSelect2" class="ui search dropdown" name="drinkerThey" onchange="this.form.submit()">
                                 <option value="">Select Drinker</option>
+                                <% if(drinkerYou) { %>
+                                    <% for(var i = 0; i < drinkers.length; i++){ %>
+                                            <option value="<%= drinkers[i].name %>"><%= drinkers[i].name %></option>
+                                    <% } %>
+                                <% } %>
                             </select>
                         </div>
                     </form>

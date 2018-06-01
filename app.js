@@ -41,8 +41,8 @@ app.post('/drink_together', function(req, res, next) {
     //Retrieve the data via req.body forms, insert into distance function
 
     if (req.body.friend) {
-        console.log(req.body);
-        console.log('drinkerA: ' + drinkerA);
+        // console.log(req.body);
+        // console.log('drinkerA: ' + drinkerA);
         database.getDrinkerLocation(drinkerA, function(drinkerALocation) {
             // console.log('drinkerALocation: ' + drinkerALocation[0]);
             var user1 = {
@@ -322,11 +322,26 @@ app.post('/drink', function(req, res, next) {
 app.get('/find_drinkers_start', function(req, res, next) {
     if (req.body.drinker) {
 
-    } else {
+    }else if(req.query.retry){
+        database.getState(req.query.retry, function(state){
+            database.getAllStates(function(states){
+                database.getDrinkersInState(state[0].state, function(drinkers) {
+                    res.render('find_drinkers_start', {
+                        drinkers: drinkers,
+                        drinkerYou: req.query.retry,
+                        drinkerState: state[0].state,
+                        states: states
+                    });
+                });
+            });
+        });
+    }else {
         database.getAllStates(function(states){
             database.getDrinkers(function(drinkers) {
                 res.render('find_drinkers_start', {
                     drinkers: drinkers,
+                    drinkerYou: null,
+                    drinkerState: null,
                     states: states
                 });
             });
@@ -470,6 +485,7 @@ app.post('/find_drinkers', function(req, res, next) {
                     }
                     res.render('find_drinkers', {
                         drinker: req.body.drinkerThey,
+                        drinkerYou: drinkerMatchA,
                         numBeers: beers[0].beers,
                         numBars: bars[0].bars,
                         commonalities: commonalities,
@@ -484,11 +500,12 @@ app.post('/find_drinkers', function(req, res, next) {
 
 // GET /find_drinkers/add_drinker_circle
 app.get('/find_drinkers/add_drinker_circle', function(req, res, next) {
-    console.log('req.body: ' + JSON.stringify(req.body));
+    // console.log('req.body: ' + JSON.stringify(req.body));
     if (req.query.drinker) {
-        console.log('ayyy');
-        console.log(req.query.drinker);
+        // console.log('ayyy');
+        // console.log(req.query.drinker);
     } else {
+        // console.log('THE DRINKER: ' + req.query.retry);
         database.getDrinkers(function(drinkers) {
             res.redirect('/find_drinkers');
         });
@@ -559,9 +576,9 @@ app.get('/add_yourself', function(req, res, next) {
                 phone: ''
             });
         }else{
-            console.log('session stuff');
-            console.log(req.session.name);
-            console.log(req.session.phone);
+            // console.log('session stuff');
+            // console.log(req.session.name);
+            // console.log(req.session.phone);
             var name = req.session.name;
             var phone = req.session.phone;
             req.session.name = '';
@@ -590,7 +607,7 @@ app.post('/add_yourself_profile', function(req, res, next) {
     //if req.body.lat is "" then say that they must choose an address from the dropdown after searching and dont do any of the rest of this code
     //if req.body.drinker_name is "" then it should redirect to adding yourself because this means they just typed in the url without creating tthemselevs
 
-    console.log('AYYY: ' + JSON.stringify(req.body));
+    // console.log('AYYY: ' + JSON.stringify(req.body));
     var rawDbLat;
     var rawDbLon;
     var rndDbLat;
@@ -679,7 +696,7 @@ app.post('/add_yourself_profile_result', function(req, res, next){
     else
         drinkTime = 'any';
 
-    console.log(JSON.stringify(req.body));
+    // console.log(JSON.stringify(req.body));
     var profile = {
         stressLevel: req.body.stressLevel,
         jobHours: Number(req.body.jobHours),
@@ -697,8 +714,8 @@ app.post('/add_yourself_profile_result', function(req, res, next){
             drinker_profile_id: result.insertId
         };
         database.insertShares(share, function(resultShare){
-            console.log(resultShare);
-            res.send('nice');
+            // console.log(resultShare);
+            res.render('add_yourself_success');
         });
     });
 });
@@ -750,14 +767,14 @@ app.post('/add_beer', function(req, res, next){
     database.insertSells(sells, function(result){
         if(result.code && result.code === 'ER_DUP_ENTRY'){
             //violation of bar,beer -> price
-            console.log('got the error');
+            // console.log('got the error');
             req.session.fd = false;
             req.session.beer = req.body.beer;
             req.session.price = req.body.price;
             res.redirect('add_beer');
         }else if(result.code && result.code === 'ER_NO_REFERENCED_ROW_2'){
             //violation of fk between beer and sells
-            console.log('got the other error');
+            // console.log('got the other error');
             req.session.fk = false;
             req.session.beer = req.body.beer;
             req.session.price = req.body.price;

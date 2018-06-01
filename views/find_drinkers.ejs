@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Belch Bashers</title>
+        <title>Bar Buddies</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="imgs/beer_icon.png">
+        <link rel="icon" href="imgs/beer_stuff/beer_icon.png">
         <script src="https://use.fontawesome.com/a41d5dbe29.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -111,9 +111,9 @@
                 </ul>
             </div>
             <div class="endButtons">
-                <form method="GET" action="/find_drinkers/add_drinker_circle">
+                <form method="GET" action="/find_drinkers_start">
                     <button type="submit" name="drinker" value="<%= drinker %>" class="btn btn-success" hidden>Add Drinker to Circle of Trust</button>
-                    <button type="submit" class="btn btn-primary tryAnotherBtn">Try Another Drinker</button>
+                    <button type="submit" name="retry" class="btn btn-primary tryAnotherBtn" value="<%= drinkerYou %>">Try Another Drinker</button>
                 </form>
             </div>
         </div>

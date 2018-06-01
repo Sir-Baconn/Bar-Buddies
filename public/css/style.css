@@ -126,7 +126,6 @@
 
 /* Might want to override font family to Lato for body */
 
-
 /* */
 
 .top_bar {
@@ -191,7 +190,7 @@ footer {
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 14px;
 }
 
 .navbar-nav>li.view-data {
