@@ -5,10 +5,10 @@ var db;
 
 function startConnection() {
     db = mysql.createConnection({
-        host: 'side-projects.c5bdglabd5ux.us-east-2.rds.amazonaws.com',
-        user: 'SirBaconnn',
-        password: 'Baconisgood1996',
-        database: 'bar_buddies',
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_db,
         multipleStatements: true
     });
 }
