@@ -12,11 +12,11 @@ There are several improvements that can be made to this to make the overall expe
 
 **Indexing certain columns.** Since there are between thousands and tens of thousands of records in the database, retrieving certain data is very costly and slow.
 
-**Filtering** Similar to above, implementing something like a dropdown for a list of thousands of an item can be extremely slow. Filtering (i.e. if you were looking for a specific drinker you could filter by state first to limit the amount of items in the dropdown) is one way to speed up dropdown selection.
+**Filtering.** Similar to above, implementing something like a dropdown for a list of thousands of an item can be extremely slow. Filtering (i.e. if you were looking for a specific drinker you could filter by state first to limit the amount of items in the dropdown) is one way to speed up dropdown selection.
 
-**Account system** The way the site currently works is that the user must choose who they are rather than logging in. With having an account you won't have to do this and could keep track of something like who you usually go out to drink with.
+**Account system.** The way the site currently works is that the user must choose who they are rather than logging in. With having an account you won't have to do this and could keep track of something like who you usually go out to drink with.
 
-**Choosing qualities for matching** Instead of just randomly selecting a drinker in your area, being able to choose what kind of drinker you are looking for would be more useful to the user.
+**Choosing qualities for matching.** Instead of just randomly selecting a drinker in your area, being able to choose what kind of drinker you are looking for would be more useful to the user.
 
 ## Current Features
 
